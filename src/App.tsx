@@ -1,25 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import { Header, Main } from "./components/styled";
+import { data } from "./components/mock";
+import { Item } from "./components/item";
 
 function App() {
+  const [tree, setTree] = useState(data);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Header>
+        <h2>
+          Вложенный список
+        </h2>
+      </Header>
+        
+      <Main>
+        {tree.map(item => (
+          <Item
+            root
+            item={item}
+            onChange={changed => setTree(old => old.map(i => i === item ? changed : i))}
+          />
+        ))}
+      </Main>
+    </>
   );
 }
 

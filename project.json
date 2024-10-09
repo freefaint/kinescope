@@ -1,0 +1,33 @@
+{
+  "name": "kinescope",
+
+  "hosts": {
+    "my": {
+      "hostname": "freefaint.ru"
+    }
+  },
+
+  "profiles": {
+    "front": {
+      "path": "./build",
+      "host": "my",
+      "dir": "/var/www/kinescope",
+
+      "build": ["npm run build"],
+      "deploy": [],
+      "start": []
+    }
+  },
+
+  "scripts": {
+    "front": [
+      "remoting build front",
+      "remoting deploy front"
+    ],
+
+    "nginx": [
+      "remoting cp my ./nginx/kinescope.conf /etc/nginx/conf.d/kinescope.conf",
+      "remoting exec my systemctl restart nginx"
+    ]
+  }
+}
